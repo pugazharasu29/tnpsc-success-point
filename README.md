@@ -8,7 +8,24 @@ Designed and engineered by **Pugazharasu A. (TINT Solutions)**.
 
 ## 🌟 Key Features
 
-### 1. 🖥️ Computer-Based Test (CBT) Simulator
+### 1. 📑 Left-Side Menustrip Navigation & Top Header
+- **Persistent Modern Menustrip (Sidebar)**:
+  - Clean collapsible left menustrip for desktop and mobile overlay drawer.
+  - Quick navigation across Dashboard, CBT Mocks, Daily Quiz, Study Hub, Syllabus Tracker, Doubt Forum, and Admin Portal.
+  - Interactive Target Exam switcher (`Group 4 & VAO`, `Group 2 & 2A`, `Group 1`).
+  - Embedded daily practice streak and XP rank tracker.
+- **Dynamic Content Header**:
+  - Live breadcrumb trail and section heading.
+  - Aspirant profile chip and 1-click authentication triggers.
+
+### 2. 🔐 Aspirant Authentication & Profile Portal
+- **Sign In & Account Registration**:
+  - Tabbed modal for sign-in or creating a new free aspirant account.
+  - Fields for Full Name, Email, WhatsApp mobile number, Target TNPSC Exam, and Native Tamil Nadu District.
+  - 1-Click quick login demo buttons for instant testing (`Demo Aspirant` & `Demo Faculty`).
+  - Persisted user state via `localStorage` with personalized dashboard greetings and rank badge.
+
+### 3. 🖥️ Computer-Based Test (CBT) Simulator
 - **Real-Time Countdown Timer**: Timed practice mimicking official TNPSC exam conditions.
 - **Dynamic Question Palette**:
   - 🟩 Answered Questions
