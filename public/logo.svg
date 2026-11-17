@@ -1,17 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#10B981" />
-      <stop offset="100%" stop-color="#06B6D4" />
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2C368" />
+      <stop offset="50%" stop-color="#DD8F6B" />
+      <stop offset="100%" stop-color="#942F67" />
+    </linearGradient>
+    <linearGradient id="subGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86947A" />
+      <stop offset="100%" stop-color="#2C3B64" />
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="24" fill="#0F172A"/>
-  <rect x="2" y="2" width="96" height="96" rx="22" stroke="url(#grad)" stroke-width="3" stroke-opacity="0.4"/>
-  <!-- Graduation Cap & Pillar / Flame of Success -->
-  <path d="M50 24L78 37L50 50L22 37L50 24Z" fill="url(#grad)"/>
-  <path d="M78 44V60" stroke="#10B981" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="78" cy="62" r="3" fill="#10B981"/>
-  <path d="M32 44V60C32 68 50 74 50 74C50 74 68 68 68 60V44" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Central Target / Success Point -->
-  <circle cx="50" cy="58" r="5" fill="#F59E0B"/>
+  <rect width="100" height="100" rx="24" fill="#101626"/>
+  <rect x="2" y="2" width="96" height="96" rx="22" stroke="#2C3B64" stroke-width="2"/>
+  <!-- Graduation Cap / Temple Tower Apex -->
+  <path d="M50 22L80 36L50 50L20 36L50 22Z" fill="url(#brandGrad)"/>
+  <path d="M80 43V59" stroke="#F2C368" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="80" cy="62" r="3" fill="#F2C368"/>
+  <path d="M30 43V60C30 68 50 75 50 75C50 75 70 68 70 60V43" stroke="#A9A4C9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Golden Success Point Center -->
+  <circle cx="50" cy="58" r="6" fill="#F2C368"/>
+  <circle cx="50" cy="58" r="2.5" fill="#942F67"/>
 </svg>

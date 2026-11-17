@@ -2,16 +2,20 @@
 
 @layer base {
   :root {
-    --bg-dark: #090d16;
-    --bg-card: #0f172a;
-    --accent-emerald: #10b981;
-    --accent-cyan: #06b6d4;
-    --accent-amber: #f59e0b;
+    --bg-dark: #0f1422;
+    --bg-card: #172138;
+    --color-jade: #86947a;
+    --color-orchid: #942f67;
+    --color-lazuli: #2c3b64;
+    --color-violet: #a9a4c9;
+    --color-honeycomb: #f2c368;
+    --color-citrus: #dd8f6b;
+    --color-darkoak: #423834;
   }
 
   body {
     background-color: var(--bg-dark);
-    color: #f1f5f9;
+    color: #f8fafc;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
   }
@@ -28,22 +32,22 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #0f1422;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #2c3b64;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #10b981;
+  background: #f2c368;
 }
 
-/* Glass & Card Utilities */
+/* Glass & Card Utilities using the new Pantone Palette */
 .glass-card {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(23, 33, 56, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(44, 59, 100, 0.85);
 }
 
 .glass-card-hover {
@@ -51,26 +55,39 @@
 }
 
 .glass-card-hover:hover {
-  background: rgba(19, 30, 53, 0.9);
-  border-color: rgba(16, 185, 129, 0.35);
+  background: rgba(28, 40, 68, 0.9);
+  border-color: rgba(242, 195, 104, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(16, 185, 129, 0.1);
+  box-shadow: 0 10px 25px -5px rgba(15, 20, 34, 0.6), 0 0 15px rgba(242, 195, 104, 0.1);
 }
 
-.badge-emerald {
-  background: rgba(16, 185, 129, 0.12);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+/* Specific Custom Badges */
+.badge-honeycomb {
+  background: rgba(242, 195, 104, 0.14);
+  color: #f2c368;
+  border: 1px solid rgba(242, 195, 104, 0.35);
 }
 
-.badge-cyan {
-  background: rgba(6, 182, 212, 0.12);
-  color: #38bdf8;
-  border: 1px solid rgba(6, 182, 212, 0.3);
+.badge-orchid {
+  background: rgba(148, 47, 103, 0.18);
+  color: #f38ac3;
+  border: 1px solid rgba(148, 47, 103, 0.4);
 }
 
-.badge-amber {
-  background: rgba(245, 158, 11, 0.12);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+.badge-jade {
+  background: rgba(134, 148, 122, 0.18);
+  color: #b7c7ab;
+  border: 1px solid rgba(134, 148, 122, 0.4);
+}
+
+.badge-violet {
+  background: rgba(169, 164, 201, 0.15);
+  color: #a9a4c9;
+  border: 1px solid rgba(169, 164, 201, 0.35);
+}
+
+.badge-citrus {
+  background: rgba(221, 143, 107, 0.18);
+  color: #f5a982;
+  border: 1px solid rgba(221, 143, 107, 0.4);
 }

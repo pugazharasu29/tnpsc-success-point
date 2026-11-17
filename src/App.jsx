@@ -167,7 +167,7 @@ function App() {
   const syllabusPercent = Math.min(100, Math.round((completedCount / sampleTotalTopics) * 100));
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 flex font-sans">
+    <div className="min-h-screen bg-[#0f1422] text-[#f8fafc] flex font-sans selection:bg-[#F2C368]/30 selection:text-[#F2C368]">
       
       {/* Left Navigation Menustrip */}
       <Sidebar

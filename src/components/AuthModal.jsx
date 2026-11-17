@@ -4,16 +4,13 @@ import {
   User, 
   Mail, 
   Lock, 
-  Phone, 
-  MapPin, 
   GraduationCap, 
   ShieldCheck, 
   Sparkles, 
-  ArrowRight,
-  Eye,
-  EyeOff,
-  CheckCircle2,
-  LogIn
+  Eye, 
+  EyeOff, 
+  CheckCircle2, 
+  LogIn 
 } from 'lucide-react';
 
 const TN_DISTRICTS = [
@@ -23,14 +20,12 @@ const TN_DISTRICTS = [
 ];
 
 const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }) => {
-  const [authMode, setAuthMode] = useState('signin'); // 'signin' | 'signup'
+  const [authMode, setAuthMode] = useState('signin');
   const [showPassword, setShowPassword] = useState(false);
   
-  // Sign In state
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
 
-  // Sign Up state
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -95,7 +90,6 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
     }, 800);
   };
 
-  // Quick 1-Click Demo Login helpers
   const handleQuickDemoAspirant = () => {
     const demoUser = {
       name: 'Pugazharasu A.',
@@ -138,55 +132,55 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 border border-emerald-500/40 relative shadow-2xl space-y-5 max-h-[92vh] overflow-y-auto">
+      <div className="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 border border-[#2C3B64] relative shadow-2xl space-y-5 max-h-[92vh] overflow-y-auto">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-white bg-slate-900 border border-slate-800 transition-all"
+          className="absolute top-5 right-5 p-2 rounded-xl text-[#A9A4C9] hover:text-white bg-[#101626] border border-[#2C3B64] transition-all"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Modal Brand Header */}
         <div className="space-y-1.5 text-center">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-cyan-500 p-0.5 mx-auto shadow-lg shadow-emerald-500/25">
-            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <GraduationCap className="w-6 h-6 text-emerald-400" />
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#F2C368] via-[#DD8F6B] to-[#942F67] p-0.5 mx-auto shadow-lg shadow-[#F2C368]/20">
+            <div className="w-full h-full bg-[#101626] rounded-[14px] flex items-center justify-center">
+              <GraduationCap className="w-6 h-6 text-[#F2C368]" />
             </div>
           </div>
           <h2 className="text-xl font-extrabold text-white">
             {authMode === 'signin' ? 'Aspirant Sign In' : 'Join TNPSC SuccessPoint'}
           </h2>
-          <p className="text-xs text-slate-400 font-tamil">
+          <p className="text-xs text-[#A9A4C9] font-tamil">
             தமிழ்நாடு அரசுப் பணியாளர் தேர்வாணையத் தேர்வுகளுக்கான கற்றல் தளம்
           </p>
         </div>
 
         {/* Success Toast */}
         {successToast && (
-          <div className="p-3 rounded-xl bg-emerald-950/90 border border-emerald-500 text-emerald-300 text-xs flex items-center gap-2 animate-in fade-in">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="p-3 rounded-xl bg-[#86947A]/30 border border-[#86947A] text-[#b7c7ab] text-xs flex items-center gap-2 animate-in fade-in">
+            <CheckCircle2 className="w-4 h-4 text-[#86947A] shrink-0" />
             <span>{successToast}</span>
           </div>
         )}
 
         {/* Error Alert */}
         {errorMsg && (
-          <div className="p-3 rounded-xl bg-red-950/90 border border-red-500 text-red-300 text-xs">
+          <div className="p-3 rounded-xl bg-[#942F67]/30 border border-[#942F67] text-[#f38ac3] text-xs">
             {errorMsg}
           </div>
         )}
 
         {/* Mode Switch Tabs */}
-        <div className="grid grid-cols-2 gap-1.5 bg-slate-900 p-1 rounded-2xl border border-slate-800 text-xs font-semibold">
+        <div className="grid grid-cols-2 gap-1.5 bg-[#101626] p-1 rounded-2xl border border-[#2C3B64] text-xs font-semibold">
           <button
             type="button"
             onClick={() => { setAuthMode('signin'); setErrorMsg(''); }}
             className={`py-2 rounded-xl transition-all ${
               authMode === 'signin' 
-                ? 'bg-emerald-500 text-slate-950 font-bold shadow-md' 
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#F2C368] text-[#101626] font-bold shadow-md shadow-[#F2C368]/20' 
+                : 'text-[#A9A4C9] hover:text-white'
             }`}
           >
             Sign In
@@ -196,8 +190,8 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
             onClick={() => { setAuthMode('signup'); setErrorMsg(''); }}
             className={`py-2 rounded-xl transition-all ${
               authMode === 'signup' 
-                ? 'bg-emerald-500 text-slate-950 font-bold shadow-md' 
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#F2C368] text-[#101626] font-bold shadow-md shadow-[#F2C368]/20' 
+                : 'text-[#A9A4C9] hover:text-white'
             }`}
           >
             Create Account
@@ -206,33 +200,33 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
 
         {/* 1-Click Demo Login Bar */}
         <div className="space-y-2">
-          <div className="text-[10px] font-mono uppercase text-slate-500 text-center tracking-wider">
+          <div className="text-[10px] font-mono uppercase text-[#A9A4C9]/70 text-center tracking-wider">
             Quick 1-Click Access
           </div>
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={handleQuickDemoAspirant}
-              className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-emerald-500/30 text-[11px] text-emerald-300 font-semibold flex items-center justify-center gap-1.5 transition-all"
+              className="p-2.5 rounded-xl bg-[#101626] hover:bg-[#172138] border border-[#86947A]/40 text-[11px] text-[#b7c7ab] font-semibold flex items-center justify-center gap-1.5 transition-all"
             >
-              <User className="w-3.5 h-3.5 text-emerald-400" />
+              <User className="w-3.5 h-3.5 text-[#86947A]" />
               <span>Demo Aspirant</span>
             </button>
             <button
               type="button"
               onClick={handleQuickDemoFaculty}
-              className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/30 text-[11px] text-amber-300 font-semibold flex items-center justify-center gap-1.5 transition-all"
+              className="p-2.5 rounded-xl bg-[#101626] hover:bg-[#172138] border border-[#942F67]/40 text-[11px] text-[#f38ac3] font-semibold flex items-center justify-center gap-1.5 transition-all"
             >
-              <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[#942F67]" />
               <span>Demo Faculty</span>
             </button>
           </div>
         </div>
 
         <div className="relative flex py-1 items-center">
-          <div className="flex-grow border-t border-slate-800"></div>
-          <span className="flex-shrink mx-3 text-[10px] text-slate-500 font-mono">OR USE CREDENTIALS</span>
-          <div className="flex-grow border-t border-slate-800"></div>
+          <div className="flex-grow border-t border-[#2C3B64]"></div>
+          <span className="flex-shrink mx-3 text-[10px] text-[#A9A4C9]/70 font-mono">OR USE CREDENTIALS</span>
+          <div className="flex-grow border-t border-[#2C3B64]"></div>
         </div>
 
         {/* SIGN IN FORM */}
@@ -241,13 +235,13 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
             <div>
               <label className="block text-slate-300 mb-1 font-semibold">Email or Mobile</label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A9A4C9]" />
                 <input
                   type="text"
                   placeholder="e.g. aspirant@tnpsc.dev"
                   value={signInEmail}
                   onChange={(e) => setSignInEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#101626] border border-[#2C3B64] text-white placeholder:text-[#A9A4C9]/60 focus:outline-none focus:border-[#F2C368]"
                   required
                 />
               </div>
@@ -256,36 +250,36 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
             <div>
               <label className="block text-slate-300 mb-1 font-semibold">Password</label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A9A4C9]" />
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   value={signInPassword}
                   onChange={(e) => setSignInPassword(e.target.value)}
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#101626] border border-[#2C3B64] text-white placeholder:text-[#A9A4C9]/60 focus:outline-none focus:border-[#F2C368]"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#A9A4C9] hover:text-white"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+            <div className="flex items-center justify-between text-[11px] text-[#A9A4C9] pt-1">
               <label className="flex items-center gap-1.5 cursor-pointer">
-                <input type="checkbox" defaultChecked className="rounded border-slate-700 text-emerald-500" />
+                <input type="checkbox" defaultChecked className="rounded border-[#2C3B64] text-[#F2C368]" />
                 <span>Remember me</span>
               </label>
-              <span className="text-emerald-400 hover:underline cursor-pointer">Forgot password?</span>
+              <span className="text-[#F2C368] hover:underline cursor-pointer">Forgot password?</span>
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all mt-2"
+              className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#F2C368] via-[#DD8F6B] to-[#942F67] hover:opacity-95 text-[#101626] font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#F2C368]/20 transition-all mt-2"
             >
               <LogIn className="w-4 h-4" />
               <span>Sign In to Aspirant Portal</span>
@@ -297,13 +291,13 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
             <div>
               <label className="block text-slate-300 mb-1 font-semibold">Full Name</label>
               <div className="relative">
-                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A9A4C9]" />
                 <input
                   type="text"
                   placeholder="e.g. Pugazharasu A."
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#101626] border border-[#2C3B64] text-white placeholder:text-[#A9A4C9]/60 focus:outline-none focus:border-[#F2C368]"
                   required
                 />
               </div>
@@ -317,7 +311,7 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
                   placeholder="name@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#101626] border border-[#2C3B64] text-white placeholder:text-[#A9A4C9]/60 focus:outline-none focus:border-[#F2C368]"
                   required
                 />
               </div>
@@ -328,7 +322,7 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
                   placeholder="+91 98765 43210"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#101626] border border-[#2C3B64] text-white placeholder:text-[#A9A4C9]/60 focus:outline-none focus:border-[#F2C368]"
                 />
               </div>
             </div>
@@ -339,7 +333,7 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
                 <select
                   value={targetExam}
                   onChange={(e) => setTargetExam(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#101626] border border-[#2C3B64] text-white focus:outline-none focus:border-[#F2C368]"
                 >
                   <option value="Group 4 & VAO">Group 4 & VAO</option>
                   <option value="Group 2 & 2A">Group 2 & 2A</option>
@@ -352,7 +346,7 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
                 <select
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#101626] border border-[#2C3B64] text-white focus:outline-none focus:border-[#F2C368]"
                 >
                   {TN_DISTRICTS.map(d => (
                     <option key={d} value={d}>{d}</option>
@@ -364,19 +358,19 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
             <div>
               <label className="block text-slate-300 mb-1 font-semibold">Create Password</label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A9A4C9]" />
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Minimum 6 characters"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#101626] border border-[#2C3B64] text-white placeholder:text-[#A9A4C9]/60 focus:outline-none focus:border-[#F2C368]"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#A9A4C9] hover:text-white"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -385,7 +379,7 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
 
             <button
               type="submit"
-              className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all mt-2"
+              className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#F2C368] via-[#DD8F6B] to-[#942F67] hover:opacity-95 text-[#101626] font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#F2C368]/20 transition-all mt-2"
             >
               <Sparkles className="w-4 h-4" />
               <span>Create Free Aspirant Account</span>
@@ -393,14 +387,14 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
           </form>
         )}
 
-        <div className="text-[11px] text-center text-slate-400 pt-1">
+        <div className="text-[11px] text-center text-[#A9A4C9] pt-1">
           {authMode === 'signin' ? (
             <p>
               Don't have an account yet?{' '}
               <button 
                 type="button" 
                 onClick={() => setAuthMode('signup')}
-                className="text-emerald-400 font-semibold hover:underline"
+                className="text-[#F2C368] font-semibold hover:underline"
               >
                 Sign up free
               </button>
@@ -411,7 +405,7 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess, currentRole, setUserRole }
               <button 
                 type="button" 
                 onClick={() => setAuthMode('signin')}
-                className="text-emerald-400 font-semibold hover:underline"
+                className="text-[#F2C368] font-semibold hover:underline"
               >
                 Sign in here
               </button>
