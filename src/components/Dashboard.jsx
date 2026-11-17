@@ -21,11 +21,65 @@ const Dashboard = ({
   xpPoints, 
   testHistory, 
   syllabusPercent, 
-  targetExam 
+  targetExam,
+  currentUser,
+  onOpenAuth
 }) => {
   return (
     <div className="space-y-8">
       
+      {/* Personalized Welcome Card */}
+      {currentUser ? (
+        <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-emerald-950/50 via-slate-900 to-slate-950 border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base shrink-0 border border-emerald-500/30">
+              {currentUser.name.charAt(0)}
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-white text-base font-tamil">
+                  வணக்கம், {currentUser.name}!
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-700">
+                  {currentUser.rank}
+                </span>
+              </div>
+              <p className="text-xs text-slate-400">
+                Aspirant from <span className="text-emerald-400 font-medium">{currentUser.district}</span> • Focus: <span className="text-slate-300 font-medium">{targetExam}</span>
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-slate-400 hidden md:inline">Account Synced</span>
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+          </div>
+        </div>
+      ) : (
+        <div className="p-4 sm:p-5 rounded-3xl bg-slate-900/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">
+                Create or Log In to Your Aspirant Profile
+              </h4>
+              <p className="text-xs text-slate-400">
+                Save your mock test scorecard history, syllabus tick marks, and join state-wide rank tracking.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={onOpenAuth}
+            className="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-400 hover:bg-emerald-300 text-slate-950 shadow-md transition-all self-start sm:self-center"
+          >
+            Sign In / Register Free →
+          </button>
+        </div>
+      )}
+
       {/* Aspirant Target Status & Readiness Card */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         

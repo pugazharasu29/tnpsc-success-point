@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import TopHeader from './components/TopHeader';
+import AuthModal from './components/AuthModal';
 import HeroBanner from './components/HeroBanner';
 import Dashboard from './components/Dashboard';
 import CBTTestsCatalog from './components/CBTTestsCatalog';
@@ -16,16 +18,34 @@ function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [userRole, setUserRole] = useState('aspirant'); // 'aspirant' | 'admin'
   const [targetExam, setTargetExam] = useState('Group 4 & VAO');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  // Authenticated User State (sync with localStorage)
+  const [currentUser, setCurrentUser] = useState(() => {
+    const saved = localStorage.getItem('tnpsc_aspirant_user');
+    return saved ? JSON.parse(saved) : {
+      name: 'Pugazharasu A.',
+      email: 'pugazharasua.official@gmail.com',
+      phone: '+91 98765 43210',
+      targetExam: 'Group 4 & VAO',
+      district: 'Chennai',
+      role: 'aspirant',
+      joinedDate: 'Nov 2026',
+      testsAttempted: 5,
+      rank: 'State Rank #128'
+    };
+  });
   
-  // Persisted or default State
+  // Persisted Streak & XP
   const [streak, setStreak] = useState(() => {
     const saved = localStorage.getItem('tnpsc_streak');
-    return saved ? parseInt(saved) : 5; // default 5-day streak
+    return saved ? parseInt(saved) : 5;
   });
 
   const [xpPoints, setXpPoints] = useState(() => {
     const saved = localStorage.getItem('tnpsc_xp');
-    return saved ? parseInt(saved) : 320;
+    return saved ? parseInt(saved) : 380;
   });
 
   const [completedTopics, setCompletedTopics] = useState(() => {
@@ -56,6 +76,14 @@ function App() {
   const [customQuestions, setCustomQuestions] = useState([]);
 
   // Sync to local storage
+  useEffect(() => {
+    if (currentUser) {
+      localStorage.setItem('tnpsc_aspirant_user', JSON.stringify(currentUser));
+    } else {
+      localStorage.removeItem('tnpsc_aspirant_user');
+    }
+  }, [currentUser]);
+
   useEffect(() => {
     localStorage.setItem('tnpsc_streak', streak.toString());
   }, [streak]);
@@ -120,16 +148,31 @@ function App() {
     setCustomQuestions(prev => [newQ, ...prev]);
   };
 
+  const handleLoginSuccess = (userObj) => {
+    setCurrentUser(userObj);
+    if (userObj.role === 'admin') {
+      setUserRole('admin');
+    }
+  };
+
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to sign out?')) {
+      setCurrentUser(null);
+    }
+  };
+
   // Calculate overall syllabus percentage for dashboard
   const sampleTotalTopics = 20;
   const completedCount = Object.values(completedTopics).filter(Boolean).length;
   const syllabusPercent = Math.min(100, Math.round((completedCount / sampleTotalTopics) * 100));
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#090d16] text-slate-100 flex font-sans">
       
-      {/* Top Navigation */}
-      <Navbar
+      {/* Left Navigation Menustrip */}
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         userRole={userRole}
@@ -138,92 +181,123 @@ function App() {
         xpPoints={xpPoints}
         targetExam={targetExam}
         setTargetExam={setTargetExam}
+        currentUser={currentUser}
+        onOpenAuth={() => setIsAuthModalOpen(true)}
+        onLogout={handleLogout}
       />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      {/* Main Content Pane (Offset left for sidebar on desktop) */}
+      <div className="flex-1 flex flex-col min-h-screen lg:pl-72 transition-all duration-300 w-full overflow-x-hidden">
         
-        {/* Hero banner shown on Dashboard */}
-        {activeTab === 'dashboard' && (
-          <HeroBanner
-            onStartTest={() => handleStartTest('test-gr4-full-01')}
-            onStartDailyQuiz={() => setActiveTab('daily-quiz')}
-            targetExam={targetExam}
-          />
-        )}
+        {/* Modern Top Header */}
+        <TopHeader
+          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          activeTab={activeTab}
+          streak={streak}
+          xpPoints={xpPoints}
+          targetExam={targetExam}
+          currentUser={currentUser}
+          onOpenAuth={() => setIsAuthModalOpen(true)}
+          userRole={userRole}
+        />
 
-        {/* Tab Router */}
-        {activeTab === 'dashboard' && (
-          <Dashboard
-            onStartTest={handleStartTest}
-            onNavigateTab={setActiveTab}
-            streak={streak}
-            xpPoints={xpPoints}
-            testHistory={testHistory}
-            syllabusPercent={syllabusPercent}
-            targetExam={targetExam}
-          />
-        )}
+        {/* Content Body */}
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          
+          {/* Hero banner shown on Dashboard */}
+          {activeTab === 'dashboard' && (
+            <HeroBanner
+              onStartTest={() => handleStartTest('test-gr4-full-01')}
+              onStartDailyQuiz={() => setActiveTab('daily-quiz')}
+              targetExam={targetExam}
+            />
+          )}
 
-        {activeTab === 'cbt-tests' && (
-          <CBTTestsCatalog
-            onStartTest={handleStartTest}
-          />
-        )}
+          {/* Tab Views */}
+          {activeTab === 'dashboard' && (
+            <Dashboard
+              onStartTest={handleStartTest}
+              onNavigateTab={setActiveTab}
+              streak={streak}
+              xpPoints={xpPoints}
+              testHistory={testHistory}
+              syllabusPercent={syllabusPercent}
+              targetExam={targetExam}
+              currentUser={currentUser}
+              onOpenAuth={() => setIsAuthModalOpen(true)}
+            />
+          )}
 
-        {activeTab === 'test-session' && (
-          <MockTestEngine
-            testId={activeTestId}
-            onCompleteTest={handleCompleteTest}
-            onExitTest={() => setActiveTab('cbt-tests')}
-          />
-        )}
+          {activeTab === 'cbt-tests' && (
+            <CBTTestsCatalog
+              onStartTest={handleStartTest}
+            />
+          )}
 
-        {activeTab === 'test-results' && (
-          <TestResultsModal
-            resultData={activeTestResult}
-            onRetakeTest={() => handleStartTest(activeTestId)}
-            onClose={() => setActiveTab('dashboard')}
-          />
-        )}
+          {activeTab === 'test-session' && (
+            <MockTestEngine
+              testId={activeTestId}
+              onCompleteTest={handleCompleteTest}
+              onExitTest={() => setActiveTab('cbt-tests')}
+            />
+          )}
 
-        {activeTab === 'daily-quiz' && (
-          <DailyQuiz
-            onEarnXp={handleEarnXp}
-            onIncrementStreak={handleIncrementStreak}
-            streak={streak}
-          />
-        )}
+          {activeTab === 'test-results' && (
+            <TestResultsModal
+              resultData={activeTestResult}
+              onRetakeTest={() => handleStartTest(activeTestId)}
+              onClose={() => setActiveTab('dashboard')}
+            />
+          )}
 
-        {activeTab === 'materials' && (
-          <StudyMaterials />
-        )}
+          {activeTab === 'daily-quiz' && (
+            <DailyQuiz
+              onEarnXp={handleEarnXp}
+              onIncrementStreak={handleIncrementStreak}
+              streak={streak}
+            />
+          )}
 
-        {activeTab === 'syllabus' && (
-          <SyllabusTracker
-            completedTopics={completedTopics}
-            onToggleTopic={handleToggleTopic}
-            onResetProgress={handleResetSyllabus}
-          />
-        )}
+          {activeTab === 'materials' && (
+            <StudyMaterials />
+          )}
 
-        {activeTab === 'community' && (
-          <CommunityForum
-            userRole={userRole}
-          />
-        )}
+          {activeTab === 'syllabus' && (
+            <SyllabusTracker
+              completedTopics={completedTopics}
+              onToggleTopic={handleToggleTopic}
+              onResetProgress={handleResetSyllabus}
+            />
+          )}
 
-        {activeTab === 'admin' && (
-          <AdminPortal
-            onAddCustomQuestion={handleAddCustomQuestion}
-            customQuestionsCount={customQuestions.length}
-          />
-        )}
+          {activeTab === 'community' && (
+            <CommunityForum
+              userRole={userRole}
+            />
+          )}
 
-      </main>
+          {activeTab === 'admin' && (
+            <AdminPortal
+              onAddCustomQuestion={handleAddCustomQuestion}
+              customQuestionsCount={customQuestions.length}
+            />
+          )}
 
-      {/* Footer */}
-      <Footer />
+        </main>
+
+        {/* Footer */}
+        <Footer />
+
+      </div>
+
+      {/* Aspirant Sign In / Sign Up Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onLoginSuccess={handleLoginSuccess}
+        currentRole={userRole}
+        setUserRole={setUserRole}
+      />
 
     </div>
   );
